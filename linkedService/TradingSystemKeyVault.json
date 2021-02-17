@@ -1,0 +1,11 @@
+{
+	"name": "TradingSystemKeyVault",
+	"properties": {
+		"description": "A link to our Azure Key Vault.",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://sigma-key-vault.vault.azure.net/"
+		}
+	}
+}
