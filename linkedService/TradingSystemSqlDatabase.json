@@ -1,0 +1,18 @@
+{
+	"name": "TradingSystemSqlDatabase",
+	"properties": {
+		"description": "A SQL Database we will use to pull info for our pipeline.",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "TradingSystemKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "azure-sec-database-connection-string"
+			}
+		}
+	}
+}
