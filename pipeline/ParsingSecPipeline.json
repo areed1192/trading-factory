@@ -2,6 +2,48 @@
 	"name": "ParsingSecPipeline",
 	"properties": {
 		"description": "We will use this pipeline to collect filings and parse those filings.",
+		"activities": [
+			{
+				"name": "LookupCikNumber",
+				"description": "Query the SQL Database for the CIK numbers we want to pull filings for.",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT TOP (10) [CIK]\nFROM [dbo].[ST_Tickers_CIK]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "TradingSystemSqlDatabaseCikTable",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookupCikNumber",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
+			}
+		],
 		"annotations": []
 	}
 }
