@@ -1,0 +1,7 @@
+{
+	"name": "ParsingSecPipeline",
+	"properties": {
+		"description": "We will use this pipeline to collect filings and parse those filings.",
+		"annotations": []
+	}
+}
