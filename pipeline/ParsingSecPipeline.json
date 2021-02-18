@@ -31,7 +31,8 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "LoopThroughEachCik",
+				"description": "Loop through each CIK number to then go and grab the filings that fall under it.",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -41,7 +42,13 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupCikNumber').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"annotations": []
