@@ -1,0 +1,27 @@
+{
+	"name": "SecDatasetJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SecServer",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cik": {
+				"type": "string",
+				"defaultValue": "1503948"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@concat(dataset().cik, '/index.json')",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}
