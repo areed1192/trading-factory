@@ -31,8 +31,7 @@
 				}
 			},
 			{
-				"name": "LoopThroughEachCik",
-				"description": "Loop through each CIK number to then go and grab the filings that fall under it.",
+				"name": "LoopThroughCik",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -50,7 +49,7 @@
 					},
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "GrabSecJson",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -62,8 +61,51 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "JsonSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "JsonReadSettings"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
 								"enableStaging": false
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "SecDatasetJson",
+									"type": "DatasetReference",
+									"parameters": {
+										"cik": {
+											"value": "@item().CIK",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "TradingSystemJsonStorage",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().CIK, '.jsonc')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}
