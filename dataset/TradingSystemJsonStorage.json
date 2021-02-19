@@ -1,0 +1,28 @@
+{
+	"name": "TradingSystemJsonStorage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TradingSystemBlobStorageLinked",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "data-dumps",
+				"container": "sec-company-filings"
+			}
+		},
+		"schema": {}
+	}
+}
